@@ -1,0 +1,107 @@
+.heroSection {
+  background-color: #ffffff;
+  padding: 60px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.heroBackground {
+  width: 100%;
+  max-width: 1300px;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fff7fb 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  padding: 70px 60px;
+}
+
+.heroContainer {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* ===== Left ===== */
+.heroLeft {
+  flex: 1;
+  min-width: 350px;
+}
+
+.heroTitle {
+  color: #78be43;
+  font-size: 36px;
+  font-weight: 800;
+  font-family: "Segoe UI Semilight";
+}
+
+.heroSubtitle {
+  color: #2563eb;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: "Segoe UI Semilight";
+}
+
+.heroDescription {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 35px;
+  max-width: 550px;
+  font-family: "Segoe UI";
+}
+
+.heroActions {
+  display: flex;
+  gap: 15px;
+}
+
+/* ===== Buttons ===== */
+.btnPrimary {
+  padding: 12px 28px;
+  background-color: #7e3e98;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btnPrimary:hover {
+  background-color: #6a2f83;
+}
+
+.btnSecondary {
+  padding: 12px 28px;
+  background-color: #fff;
+  color: #7e3e98;
+  border: 2px solid #7e3e98;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btnSecondary:hover {
+  background-color: #7e3e98;
+  color: #fff;
+}
+
+/* ===== Right ===== */
+.heroRight {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 350px;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  object-fit: contain;
+}
