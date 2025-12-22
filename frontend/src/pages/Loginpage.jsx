@@ -1,5 +1,5 @@
 import { FaUser, FaLock } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../api/authApi";
 import "../styles/LoginPage.css";
@@ -10,18 +10,27 @@ function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Chặn quay lại trang login khi đã login rồi
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/dashboard", { replace: true });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleLogin = async () => {
     setError("");
 
     try {
       const res = await loginApi(username, password);
-      const { role, msg } = res.data;
+      const { access_token, msg } = res.data;
 
-      // bản demo: role luôn là admin
-      if (role === "admin") {
-        alert(msg);
-        navigate("/dashboard", { replace: true });
-      }
+      // Lưu JWT
+      localStorage.setItem("token", access_token);
+
+      alert(msg);
+      navigate("/dashboard", { replace: true });
+      
     } catch (err) {
       if (err.response) {
         setError(err.response.data.msg);

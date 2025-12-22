@@ -5,7 +5,7 @@ backend/app/routes/__pycache__/
 backend/__pycache__/
 backend/*.db
 backend/.env
-backend/test.py
+backend/app/routes/test.py
 
 # Frontend
 frontend/node_modules/

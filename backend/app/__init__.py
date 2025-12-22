@@ -9,7 +9,6 @@ jwt = JWTManager()
 
 def create_app():
     load_dotenv()
-
     
     app = Flask(__name__)
     CORS(app)
@@ -22,8 +21,6 @@ def create_app():
 
     # Cấu hình JWT
     app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
-    from datetime import timedelta
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
     # Khởi tạo DB với App
     db.init_app(app)

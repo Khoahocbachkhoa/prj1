@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from app.models import Medicine, Supplier
+from flask_jwt_extended import jwt_required
 
 # Lấy danh sách thuốc và các nhà cung cấp cho form nhập thuốc
 
@@ -8,6 +9,7 @@ common_bp = Blueprint('common', __name__)
 
 # --- API 1: Lấy danh sách thuốc (Cho Dropdown chọn thuốc) ---
 @common_bp.route('/api/options/medicines', methods=['GET'])
+@jwt_required()
 def get_medicine_options():
     try:
         # Lấy tất cả thuốc trong DB
@@ -30,6 +32,7 @@ def get_medicine_options():
 
 # --- API 2: Lấy danh sách nhà cung cấp (Cho Dropdown chọn NCC) ---
 @common_bp.route('/api/options/suppliers', methods=['GET'])
+@jwt_required()
 def get_supplier_options():
     try:
         suppliers = Supplier.query.all()
