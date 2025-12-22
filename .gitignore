@@ -1,7 +1,14 @@
 # Backend
 backend/venv/
-backend/app/__pycache__
-backend/app/routes/__pycache__
-backend/database.db
-backend/seed.py 
+backend/__pycache__/
+backend/*.db
+backend/.env
 
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-error.log*
