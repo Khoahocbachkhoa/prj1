@@ -31,9 +31,9 @@ export default function Header() {
         </nav>
 
         <div className="buttonGroup">
-          <button className="signUpBtn">Đăng ký</button>
+          <button className="headerSignUpBtn">Đăng ký</button>
           <button
-            className="loginBtn"
+            className="headerLoginBtn"
             onClick={() => navigate("/login")}
           >
             Đăng nhập

@@ -78,36 +78,46 @@
 /* ===== Buttons ===== */
 .buttonGroup {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
-.signUpBtn {
-  padding: 8px 16px;
-  background-color: #009945;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  font-weight: bold;
+/* Base style để đồng bộ */
+.headerSignUpBtn,
+.headerLoginBtn {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
-.signUpBtn:hover {
-  background-color: #007a37;
+/* SIGN UP – Primary */
+.headerSignUpBtn {
+  background-color: #1f2937;   /* xám đen trung tính */
+  color: #ffffff;
+  border: 1px solid #1f2937;
 }
 
-.loginBtn {
-  padding: 7px 16px;
-  background-color: #fff;
-  color: #4b4b4b;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+.headerSignUpBtn:hover {
+  background-color: #111827;
+  border-color: #111827;
 }
 
-.loginBtn:hover {
-  background-color: #f5f5f5;
-  border-color: #999;
+/* LOGIN – Secondary */
+.headerLoginBtn {
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.headerLoginBtn:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
 }
