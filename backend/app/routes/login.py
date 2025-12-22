@@ -20,7 +20,8 @@ def login():
     # Demo: hệ thống có 1 người dùng duy nhất là admin
     if username == "admin" and password == "123456":
         return jsonify({
-            "msg": "Đăng nhập thành công"
+            "msg": "Đăng nhập thành công",
+            "role": "admin"
         }), 200
 
     # Tìm kiếm user dựa trên tên đăng nhập (demo)

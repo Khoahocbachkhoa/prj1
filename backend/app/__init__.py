@@ -2,8 +2,15 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from .models import db
+from flask_jwt_extended import JWTManager
+from dotenv import load_dotenv
+
+jwt = JWTManager()
 
 def create_app():
+    load_dotenv()
+
+    
     app = Flask(__name__)
     CORS(app)
 
@@ -13,8 +20,15 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(BASE_DIR, "../database.db")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    # Cấu hình JWT
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+    from datetime import timedelta
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+
     # Khởi tạo DB với App
     db.init_app(app)
+    # Khởi tạo JWT
+    jwt.init_app(app)
 
     # Đăng ký các Routes (Blueprint)
     from app.routes.login import login_bp
