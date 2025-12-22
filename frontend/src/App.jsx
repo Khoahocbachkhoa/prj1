@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import LoginPage from "./pages/Loginpage";
-import PrivateRoute from "./routes/PrivateRoutes";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
@@ -13,11 +13,11 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           {/* Bảo vệ route! */}
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={
-              <PrivateRoute>
+              <ProtectedRoute>
                 <Dashboard />
-              </PrivateRoute>
+              </ProtectedRoute>
             }
           />
         </Routes>

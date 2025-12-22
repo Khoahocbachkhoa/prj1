@@ -1,5 +1,5 @@
 import { FaUser, FaLock } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../api/authApi";
 import "../styles/LoginPage.css";
@@ -9,14 +9,6 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  // Chặn quay lại trang login khi đã login rồi
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/dashboard", { replace: true });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleLogin = async () => {
     setError("");
@@ -29,7 +21,7 @@ function LoginPage() {
       localStorage.setItem("token", access_token);
 
       alert(msg);
-      navigate("/dashboard", { replace: true });
+      navigate("/dashboard");
       
     } catch (err) {
       if (err.response) {
