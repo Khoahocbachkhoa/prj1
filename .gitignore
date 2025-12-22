@@ -1,7 +1,8 @@
 # Backend
 backend/venv/
 backend/app/__pycache__/
-backend/app/routes/__pychace__/
+backend/app/routes/__pycache__/
+backend/__pycache__/
 backend/*.db
 backend/.env
 
