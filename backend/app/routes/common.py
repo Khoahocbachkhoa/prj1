@@ -9,7 +9,7 @@ common_bp = Blueprint('common', __name__)
 
 # --- API 1: Lấy danh sách thuốc (Cho Dropdown chọn thuốc) ---
 @common_bp.route('/api/options/medicines', methods=['GET'])
-@jwt_required()
+@jwt_required() # Khóa route nếu chưa xác thực được người dùng
 def get_medicine_options():
     try:
         # Lấy tất cả thuốc trong DB
