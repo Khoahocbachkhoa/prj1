@@ -1,0 +1,34 @@
+import os
+from flask import Flask
+from flask_cors import CORS
+from .models import db  # Import db từ file models cùng thư mục
+
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+
+    # Cấu hình đường dẫn DB
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+    # Lưu ý: "../database.db" nghĩa là file db nằm ngang hàng với thư mục app
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(BASE_DIR, "../database.db")
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Khởi tạo DB với App
+    db.init_app(app)
+
+    # Đăng ký các Routes (Blueprint)
+    from app.routes.login import login_bp
+    from app.routes.common import common_bp
+    from app.routes.import_stock import import_bp
+    from app.routes.medicine import medicine_bp
+    
+    app.register_blueprint(login_bp)
+    app.register_blueprint(common_bp)
+    app.register_blueprint(import_bp)
+    app.register_blueprint(medicine_bp)
+
+    # Tạo bảng trong Database nếu chưa có
+    with app.app_context():
+        db.create_all()
+
+    return app
