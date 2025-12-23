@@ -1,39 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/mainLogo.svg";
-import "../styles/Header.css";
+import styles from "../styles/Header.module.css"; 
 
 export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="header">
-      <div className="logoContainer">
-        <img src={logo} alt="Logo" className="logoImage" />
+    <header className={styles.header}>
+      <div className={styles.logoContainer}>
+        <img src={logo} alt="Logo" className={styles.logoImage} />
 
-        <div className="brandContainer">
-          <div className="brandName">
-            <span className="textPurple">MyPharma</span>{" "}
-            <span className="textGreen">Software Solutions</span>
+        <div className={styles.brandContainer}>
+          <div className={styles.brandName}>
+            <span className={styles.textPurple}>MyPharma</span>{" "}
+            <span className={styles.textGreen}>Software Solutions</span>
           </div>
-          <div className="slogan">New Technologies For Life</div>
+          <div className={styles.slogan}>New Technologies For Life</div>
         </div>
       </div>
 
-      <div className="rightSection">
-        <nav className="nav">
+      <div className={styles.rightSection}>
+        <nav className={styles.nav}>
           {["Trang chủ", "Giải pháp", "Giới thiệu", "Trợ giúp", "Hỗ trợ"].map(
             (item) => (
-              <a key={item} href="#" className="navLink">
+              <a key={item} href="#" className={styles.navLink}>
                 {item}
               </a>
             )
           )}
         </nav>
 
-        <div className="buttonGroup">
-          <button className="headerSignUpBtn">Đăng ký</button>
+        <div className={styles.buttonGroup}>
+          <button className={styles.headerSignUpBtn}>Đăng ký</button>
           <button
-            className="headerLoginBtn"
+            className={styles.headerLoginBtn}
             onClick={() => navigate("/login")}
           >
             Đăng nhập
