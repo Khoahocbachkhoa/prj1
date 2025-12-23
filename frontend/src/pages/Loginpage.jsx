@@ -2,7 +2,8 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../api/authApi";
-import "../styles/LoginPage.css";
+
+import styles from "../styles/LoginPage.module.css";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -33,18 +34,19 @@ function LoginPage() {
   };
 
   return (
-    <div className="pageWrapper">
-      <div className="loginCard">
-        <h2 className="loginTitle">Đăng nhập</h2>
+    // 2. Sử dụng styles.className thay vì string
+    <div className={styles.pageWrapper}>
+      <div className={styles.loginCard}>
+        <h2 className={styles.loginTitle}>Đăng nhập</h2>
 
-        <form className="form">
+        <form className={styles.form}>
           {/* USERNAME */}
-          <div className="inputGroup">
-            <label className="inputLabel">Tên đăng nhập</label>
-            <div className="inputField">
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Tên đăng nhập</label>
+            <div className={styles.inputField}>
               <FaUser style={{ color: "#9ca3af", marginRight: 10 }} />
               <input
-                className="input"
+                className={styles.input}
                 type="text"
                 placeholder="Nhập tên đăng nhập"
                 value={username}
@@ -54,12 +56,12 @@ function LoginPage() {
           </div>
 
           {/* PASSWORD */}
-          <div className="inputGroup">
-            <label className="inputLabel">Mật khẩu</label>
-            <div className="inputField">
+          <div className={styles.inputGroup}>
+            <label className={styles.inputLabel}>Mật khẩu</label>
+            <div className={styles.inputField}>
               <FaLock style={{ color: "#9ca3af", marginRight: 10 }} />
               <input
-                className="input"
+                className={styles.input}
                 type="password"
                 placeholder="Nhập mật khẩu"
                 value={password}
@@ -77,16 +79,16 @@ function LoginPage() {
 
           <button
             type="button"
-            className="loginBtn"
+            className={styles.loginBtn}
             onClick={handleLogin}
           >
             Đăng nhập
           </button>
         </form>
 
-        <div className="signupBox">
+        <div className={styles.signupBox}>
           Chưa có tài khoản?
-          <span className="signupLink">Đăng ký</span>
+          <span className={styles.signupLink}>Đăng ký</span>
         </div>
       </div>
     </div>

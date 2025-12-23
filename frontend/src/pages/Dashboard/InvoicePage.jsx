@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { getInvoicesApi, createInvoiceApi } from "../../api/invoiceApi";
-import { getMedicineOptionsApi } from "../../api/medicineApi"; // Tận dụng API cũ
-import { getCustomersApi } from "../../api/customerApi";     // Tận dụng API cũ
-import "../../styles/MedicinePage.css"; // Tận dụng CSS cũ
+import { getMedicineOptionsApi } from "../../api/medicineApi"; 
+import { getCustomersApi } from "../../api/customerApi"; 
+
+// 1. Đổi import sang CSS Modules
+import styles from "../../styles/InvoicePage.module.css";
 
 export default function InvoicePage() {
   // --- STATE ---
@@ -110,42 +112,77 @@ export default function InvoicePage() {
   };
 
   return (
-    <div className="medicineContainer">
-      <h1 className="pageTitle">Quản lý Hóa đơn</h1>
+    <div className={styles.medicineContainer}>
+      <h1 className={styles.pageTitle}>Quản lý Hóa đơn</h1>
 
       {/* THANH CHỨC NĂNG */}
-      <div className="actionBar">
-        <div className="actionGroup">
-            <button onClick={() => setShowAddForm(true)} className="btn btn-primary">+ Tạo hóa đơn mới</button>
-            <button onClick={() => setShowSearchForm(true)} className="btn btn-secondary">🔍 Tìm hóa đơn</button>
+      <div className={styles.actionBar}>
+        <div className={styles.actionGroup}>
+            <button 
+              onClick={() => setShowAddForm(true)} 
+              className={`${styles.btn} ${styles["btn-primary"]}`}
+            >
+              + Tạo hóa đơn mới
+            </button>
+            <button 
+              onClick={() => setShowSearchForm(true)} 
+              className={`${styles.btn} ${styles["btn-secondary"]}`}
+            >
+              🔍 Tìm hóa đơn
+            </button>
         </div>
         
         {/* THANH LỌC */}
-        <div className="actionGroup">
-            <button onClick={() => setFilterType("today")} className={`btn ${filterType==="today"?"btn-info":"btn-secondary"}`}>Hôm nay</button>
-            <button onClick={() => setFilterType("week")} className={`btn ${filterType==="week"?"btn-info":"btn-secondary"}`}>Tuần này</button>
-            <button onClick={() => setFilterType("month")} className={`btn ${filterType==="month"?"btn-info":"btn-secondary"}`}>Tháng này</button>
-            <button onClick={() => setFilterType("all")} className={`btn ${filterType==="all"?"btn-info":"btn-secondary"}`}>Tất cả</button>
+        <div className={styles.actionGroup}>
+            <button 
+              onClick={() => setFilterType("today")} 
+              className={`${styles.btn} ${filterType==="today" ? styles["btn-info"] : styles["btn-secondary"]}`}
+            >
+              Hôm nay
+            </button>
+            <button 
+              onClick={() => setFilterType("week")} 
+              className={`${styles.btn} ${filterType==="week" ? styles["btn-info"] : styles["btn-secondary"]}`}
+            >
+              Tuần này
+            </button>
+            <button 
+              onClick={() => setFilterType("month")} 
+              className={`${styles.btn} ${filterType==="month" ? styles["btn-info"] : styles["btn-secondary"]}`}
+            >
+              Tháng này
+            </button>
+            <button 
+              onClick={() => setFilterType("all")} 
+              className={`${styles.btn} ${filterType==="all" ? styles["btn-info"] : styles["btn-secondary"]}`}
+            >
+              Tất cả
+            </button>
         </div>
       </div>
 
       {/* MODAL TẠO HÓA ĐƠN */}
       {showAddForm && (
-        <div className="modalOverlay">
-          <div className="modalContent large">
-            <h2 className="modalTitle">Tạo Hóa Đơn Bán Hàng</h2>
+        <div className={styles.modalOverlay}>
+          {/* Kết hợp 2 class */}
+          <div className={`${styles.modalContent} ${styles.large}`}>
+            <h2 className={styles.modalTitle}>Tạo Hóa Đơn Bán Hàng</h2>
             
             {/* Chọn khách hàng */}
             <div style={{marginBottom: 20}}>
                 <label style={{fontWeight: "bold"}}>Khách hàng:</label>
-                <select className="formSelect" value={selectedCustomer} onChange={e => setSelectedCustomer(e.target.value)}>
+                <select 
+                  className={styles.formSelect} 
+                  value={selectedCustomer} 
+                  onChange={e => setSelectedCustomer(e.target.value)}
+                >
                     <option value="">-- Khách lẻ --</option>
                     {cusOptions.map(c => <option key={c.id} value={c.id}>{c.name} - {c.phone}</option>)}
                 </select>
             </div>
 
             {/* Danh sách thuốc (Cart) */}
-            <table className="medicineTable">
+            <table className={styles.medicineTable}>
                 <thead>
                     <tr><th>Thuốc</th><th style={{width: 80}}>SL</th><th>Đơn giá</th><th>Thành tiền</th><th>#</th></tr>
                 </thead>
@@ -153,19 +190,35 @@ export default function InvoicePage() {
                     {cartItems.map((item, index) => (
                         <tr key={index}>
                             <td>
-                                <select className="formSelect" value={item.medId} onChange={e => handleCartChange(index, "medId", e.target.value)}>
+                                <select 
+                                  className={styles.formSelect} 
+                                  value={item.medId} 
+                                  onChange={e => handleCartChange(index, "medId", e.target.value)}
+                                >
                                     <option value="">-- Chọn thuốc --</option>
                                     {medOptions.map(m => <option key={m.id} value={m.id}>{m.name} (Tồn: ?)</option>)}
                                 </select>
                             </td>
                             <td>
-                                <input type="number" className="formInput" min="1" value={item.qty} onChange={e => handleCartChange(index, "qty", Number(e.target.value))} />
+                                <input 
+                                  type="number" 
+                                  className={styles.formInput} 
+                                  min="1" 
+                                  value={item.qty} 
+                                  onChange={e => handleCartChange(index, "qty", Number(e.target.value))} 
+                                />
                             </td>
                             <td>{item.price.toLocaleString()}</td>
                             <td>{(item.price * item.qty).toLocaleString()}</td>
                             <td>
                                 {cartItems.length > 1 && (
-                                    <button onClick={() => removeCartLine(index)} className="btn btn-danger" style={{padding: "5px 10px"}}>X</button>
+                                    <button 
+                                      onClick={() => removeCartLine(index)} 
+                                      className={`${styles.btn} ${styles["btn-danger"]}`} 
+                                      style={{padding: "5px 10px"}}
+                                    >
+                                      X
+                                    </button>
                                 )}
                             </td>
                         </tr>
@@ -173,15 +226,31 @@ export default function InvoicePage() {
                 </tbody>
             </table>
             
-            <button onClick={addCartLine} className="btn btn-secondary" style={{marginTop: 10, width: "100%"}}>+ Thêm dòng thuốc</button>
+            <button 
+              onClick={addCartLine} 
+              className={`${styles.btn} ${styles["btn-secondary"]}`} 
+              style={{marginTop: 10, width: "100%"}}
+            >
+              + Thêm dòng thuốc
+            </button>
 
             <div style={{marginTop: 20, textAlign: "right", fontSize: 18, fontWeight: "bold", color: "#2563eb"}}>
                 Tổng cộng: {calculateTotal().toLocaleString('vi-VN')}₫
             </div>
 
-            <div className="modalActions">
-              <button onClick={() => setShowAddForm(false)} className="btn btn-secondary">Hủy</button>
-              <button onClick={handleSaveInvoice} className="btn btn-success">Lưu & In hóa đơn</button>
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => setShowAddForm(false)} 
+                className={`${styles.btn} ${styles["btn-secondary"]}`}
+              >
+                Hủy
+              </button>
+              <button 
+                onClick={handleSaveInvoice} 
+                className={`${styles.btn} ${styles["btn-success"]}`}
+              >
+                Lưu & In hóa đơn
+              </button>
             </div>
           </div>
         </div>
@@ -189,28 +258,43 @@ export default function InvoicePage() {
 
       {/* MODAL TÌM KIẾM */}
       {showSearchForm && (
-        <div className="modalOverlay">
-          <div className="modalContent">
-             <h2 className="modalTitle">Tìm kiếm hóa đơn</h2>
-             <div className="searchBox">
-                 <input className="formInput" placeholder="Nhập mã HĐ hoặc tên khách..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
-                 <button onClick={loadInvoices} className="btn btn-primary">Tìm</button>
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+             <h2 className={styles.modalTitle}>Tìm kiếm hóa đơn</h2>
+             <div className={styles.searchBox}>
+                 <input 
+                    className={styles.formInput} 
+                    placeholder="Nhập mã HĐ hoặc tên khách..." 
+                    value={searchQuery} 
+                    onChange={e => setSearchQuery(e.target.value)} 
+                 />
+                 <button 
+                    onClick={loadInvoices} 
+                    className={`${styles.btn} ${styles["btn-primary"]}`}
+                 >
+                    Tìm
+                 </button>
              </div>
-             <div className="modalActions">
-                 <button onClick={() => setShowSearchForm(false)} className="btn btn-secondary">Đóng</button>
+             <div className={styles.modalActions}>
+                 <button 
+                    onClick={() => setShowSearchForm(false)} 
+                    className={`${styles.btn} ${styles["btn-secondary"]}`}
+                 >
+                    Đóng
+                 </button>
              </div>
           </div>
         </div>
       )}
 
       {/* BẢNG DANH SÁCH */}
-      <table className="medicineTable">
+      <table className={styles.medicineTable}>
         <thead>
           <tr>
             <th>Mã HĐ</th>
             <th>Ngày tạo</th>
             <th>Khách hàng</th>
-            <th className="text-right">Tổng tiền</th>
+            <th className={styles["text-right"]}>Tổng tiền</th>
           </tr>
         </thead>
         <tbody>
@@ -219,12 +303,16 @@ export default function InvoicePage() {
               <td style={{fontWeight: "bold"}}>#{inv.id}</td>
               <td>{inv.date}</td>
               <td>{inv.customer_name}</td>
-              <td className="text-right" style={{color: "#2563eb", fontWeight: "bold"}}>
+              <td className={styles["text-right"]} style={{color: "#2563eb", fontWeight: "bold"}}>
                 {inv.total.toLocaleString('vi-VN')}₫
               </td>
             </tr>
           )) : (
-            <tr><td colSpan="4" className="no-data">Không có hóa đơn nào</td></tr>
+            <tr>
+              <td colSpan="4" className={styles["no-data"]}>
+                Không có hóa đơn nào
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { getCustomersApi, addCustomerApi, searchCustomerApi } from "../../api/customerApi";
-import "../../styles/CustomerPage.css"; // Dùng chung file CSS cho đẹp và đồng bộ
+
+// 1. Đổi import sang CSS Modules
+import styles from "../../styles/CustomerPage.module.css";
 
 export default function CustomerPage() {
   // --- STATE QUẢN LÝ ---
@@ -65,47 +67,64 @@ export default function CustomerPage() {
   const totalPages = Math.ceil(customers.length / rowsPerPage);
 
   return (
-    <div className="medicineContainer"> {/* Dùng lại class CSS cũ */}
-      <h1 className="pageTitle">Quản lý Khách hàng</h1>
+    // Sử dụng styles.className
+    <div className={styles.medicineContainer}>
+      <h1 className={styles.pageTitle}>Quản lý Khách hàng</h1>
 
       {/* THANH CHỨC NĂNG */}
-      <div className="actionBar">
-        <button onClick={() => setShowAddForm(true)} className="btn btn-primary">
+      <div className={styles.actionBar}>
+        <button 
+          onClick={() => setShowAddForm(true)} 
+          className={`${styles.btn} ${styles["btn-primary"]}`}
+        >
           + Thêm khách hàng
         </button>
-        <button onClick={() => setShowSearchForm(true)} className="btn btn-secondary">
+        <button 
+          onClick={() => setShowSearchForm(true)} 
+          className={`${styles.btn} ${styles["btn-secondary"]}`}
+        >
           🔍 Tìm kiếm khách hàng
         </button>
       </div>
 
       {/* --- MODAL THÊM KHÁCH HÀNG --- */}
       {showAddForm && (
-        <div className="modalOverlay">
-          <div className="modalContent">
-            <h2 className="modalTitle">Thêm Khách Hàng</h2>
-            <div className="formGroup">
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2 className={styles.modalTitle}>Thêm Khách Hàng</h2>
+            <div className={styles.formGroup}>
               <input 
-                className="formInput" 
+                className={styles.formInput} 
                 placeholder="Tên khách hàng (*)" 
                 value={formData.name} 
                 onChange={(e) => setFormData({...formData, name: e.target.value})} 
               />
               <input 
-                className="formInput" 
+                className={styles.formInput} 
                 placeholder="Số điện thoại" 
                 value={formData.phone} 
                 onChange={(e) => setFormData({...formData, phone: e.target.value})} 
               />
               <textarea 
-                className="formTextarea" 
+                className={styles.formTextarea} 
                 placeholder="Địa chỉ" 
                 value={formData.address} 
                 onChange={(e) => setFormData({...formData, address: e.target.value})} 
               />
             </div>
-            <div className="modalActions">
-              <button onClick={() => setShowAddForm(false)} className="btn btn-secondary">Hủy</button>
-              <button onClick={handleAddCustomer} className="btn btn-success">Lưu</button>
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => setShowAddForm(false)} 
+                className={`${styles.btn} ${styles["btn-secondary"]}`}
+              >
+                Hủy
+              </button>
+              <button 
+                onClick={handleAddCustomer} 
+                className={`${styles.btn} ${styles["btn-success"]}`}
+              >
+                Lưu
+              </button>
             </div>
           </div>
         </div>
@@ -113,21 +132,27 @@ export default function CustomerPage() {
 
       {/* --- MODAL TÌM KIẾM --- */}
       {showSearchForm && (
-        <div className="modalOverlay">
-          <div className="modalContent large">
-            <h2 className="modalTitle">Tìm kiếm khách hàng</h2>
-            <div className="searchBox">
+        <div className={styles.modalOverlay}>
+          {/* Kết hợp nhiều class */}
+          <div className={`${styles.modalContent} ${styles.large}`}>
+            <h2 className={styles.modalTitle}>Tìm kiếm khách hàng</h2>
+            <div className={styles.searchBox}>
               <input 
-                className="formInput" 
+                className={styles.formInput} 
                 placeholder="Nhập tên hoặc số điện thoại..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{ flex: 1 }}
               />
-              <button onClick={handleSearch} className="btn btn-primary">Tìm</button>
+              <button 
+                onClick={handleSearch} 
+                className={`${styles.btn} ${styles["btn-primary"]}`}
+              >
+                Tìm
+              </button>
             </div>
             
-            <table className="medicineTable">
+            <table className={styles.medicineTable}>
               <thead>
                 <tr><th>Tên khách hàng</th><th>SĐT</th><th>Địa chỉ</th></tr>
               </thead>
@@ -138,21 +163,32 @@ export default function CustomerPage() {
                     <td>{c.phone}</td>
                     <td>{c.address}</td>
                   </tr>
-                )) : <tr><td colSpan="3" className="no-data">Không có kết quả</td></tr>}
+                )) : (
+                  <tr>
+                    <td colSpan="3" className={styles["no-data"]}>
+                      Không có kết quả
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
-            <div className="modalActions">
-              <button onClick={() => setShowSearchForm(false)} className="btn btn-secondary">Đóng</button>
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => setShowSearchForm(false)} 
+                className={`${styles.btn} ${styles["btn-secondary"]}`}
+              >
+                Đóng
+              </button>
             </div>
           </div>
         </div>
       )}
 
       {/* --- BẢNG DANH SÁCH CHÍNH --- */}
-      <div className="tableControls">
+      <div className={styles.tableControls}>
         <label>Hiển thị:</label>
         <select 
-          className="tableSelect" 
+          className={styles.tableSelect} 
           value={rowsPerPage} 
           onChange={(e) => { setRowsPerPage(Number(e.target.value)); setCurrentPage(1); }}
         >
@@ -162,7 +198,7 @@ export default function CustomerPage() {
         </select>
       </div>
 
-      <table className="medicineTable">
+      <table className={styles.medicineTable}>
         <thead>
           <tr>
             <th>ID</th>
@@ -180,16 +216,20 @@ export default function CustomerPage() {
               <td style={{color: "#64748b"}}>{cus.address || "---"}</td>
             </tr>
           )) : (
-            <tr><td colSpan="4" className="no-data">Chưa có khách hàng nào</td></tr>
+            <tr>
+              <td colSpan="4" className={styles["no-data"]}>
+                Chưa có khách hàng nào
+              </td>
+            </tr>
           )}
         </tbody>
       </table>
 
       {/* PHÂN TRANG */}
-      <div className="paginationFooter">
-        <div className="paginationControls">
+      <div className={styles.paginationFooter}>
+        <div className={styles.paginationControls}>
           <button 
-            className="paginationBtn" 
+            className={styles.paginationBtn} 
             onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
             disabled={currentPage === 1}
           >
@@ -197,7 +237,7 @@ export default function CustomerPage() {
           </button>
           <span>Trang {currentPage} / {totalPages || 1}</span>
           <button 
-            className="paginationBtn" 
+            className={styles.paginationBtn} 
             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} 
             disabled={currentPage >= totalPages}
           >

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-// Import file API và CSS đã tách
+// Import file API
 import { 
   getMedicineOptionsApi, 
   getSupplierOptionsApi, 
@@ -8,7 +8,9 @@ import {
   addMedicineApi, 
   createImportReceiptApi 
 } from "../../api/medicineApi.js";
-import "../../styles/MedicinePage.css";
+
+// 1. Đổi import sang CSS Module
+import styles from "../../styles/MedicinePage.module.css";
 
 export default function MedicinePage() {
   // --- STATE HIỂN THỊ POPUP ---
@@ -33,7 +35,7 @@ export default function MedicinePage() {
 
 
   // =================================================================================
-  // 1. CÁC HÀM GỌI API (Đã thay bằng function từ file api/medicineApi.js)
+  // 1. CÁC HÀM GỌI API
   // =================================================================================
   
   const fetchOptions = useCallback(async () => {
@@ -158,21 +160,32 @@ export default function MedicinePage() {
 
 
   // =================================================================================
-  // 4. GIAO DIỆN (JSX - Sử dụng ClassName thay vì Inline Style)
+  // 4. GIAO DIỆN (Đã cập nhật styles)
   // =================================================================================
   return (
-    <div className="medicineContainer">
-      <h1 className="pageTitle">Quản lý kho</h1>
+    <div className={styles.medicineContainer}>
+      <h1 className={styles.pageTitle}>Quản lý kho</h1>
 
       {/* THANH CHỨC NĂNG */}
-      <div className="actionBar">
-        <button onClick={() => setShowImportForm(true)} className="btn btn-primary">
+      <div className={styles.actionBar}>
+        <button 
+          onClick={() => setShowImportForm(true)} 
+          className={`${styles.btn} ${styles["btn-primary"]}`}
+        >
           + Nhập kho thuốc
         </button>
 
-        <div className="actionGroup">
-          <button onClick={() => setShowSearchForm(true)} className="btn btn-secondary">🔍 Tìm kiếm thuốc</button>
-          <button onClick={() => setShowAddMedForm(true)} className="btn btn-success">
+        <div className={styles.actionGroup}>
+          <button 
+            onClick={() => setShowSearchForm(true)} 
+            className={`${styles.btn} ${styles["btn-secondary"]}`}
+          >
+            🔍 Tìm kiếm thuốc
+          </button>
+          <button 
+            onClick={() => setShowAddMedForm(true)} 
+            className={`${styles.btn} ${styles["btn-success"]}`}
+          >
             + Thêm loại thuốc mới
           </button>
         </div>
@@ -180,20 +193,25 @@ export default function MedicinePage() {
 
       {/* --- MODAL TÌM KIẾM --- */}
       {showSearchForm && (
-        <div className="modalOverlay">
-          <div className="modalContent large">
-            <h2 className="modalTitle">Tra cứu thông tin thuốc</h2>
-            <div className="searchBox">
+        <div className={styles.modalOverlay}>
+          <div className={`${styles.modalContent} ${styles.large}`}>
+            <h2 className={styles.modalTitle}>Tra cứu thông tin thuốc</h2>
+            <div className={styles.searchBox}>
               <input 
-                className="formInput"
+                className={styles.formInput}
                 placeholder="Nhập tên thuốc..." 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
                 style={{ flex: 1 }}
               />
-              <button onClick={handleSearchMedicine} className="btn btn-primary">Tìm</button>
+              <button 
+                onClick={handleSearchMedicine} 
+                className={`${styles.btn} ${styles["btn-primary"]}`}
+              >
+                Tìm
+              </button>
             </div>
-            <table className="medicineTable">
+            <table className={styles.medicineTable}>
               <thead>
                 <tr><th>Tên thuốc</th><th>Hãng</th><th>Đơn vị</th><th>Giá bán</th><th>Tồn kho</th></tr>
               </thead>
@@ -201,35 +219,88 @@ export default function MedicinePage() {
                 {searchResults.length > 0 ? searchResults.map(med => (
                   <tr key={med.id}>
                     <td>{med.name}</td><td>{med.brand}</td><td>{med.unit}</td><td>{med.price.toLocaleString()}₫</td>
-                    <td className={med.quantity > 0 ? "text-success" : "text-danger"}>{med.quantity}</td>
+                    {/* Xử lý class động */}
+                    <td className={med.quantity > 0 ? styles["text-success"] : styles["text-danger"]}>
+                      {med.quantity}
+                    </td>
                   </tr>
-                )) : <tr><td colSpan="5" className="no-data">Không có kết quả</td></tr>}
+                )) : (
+                  <tr>
+                    <td colSpan="5" className={styles["no-data"]}>Không có kết quả</td>
+                  </tr>
+                )}
               </tbody>
             </table>
-            <button onClick={() => setShowSearchForm(false)} className="btn btn-secondary" style={{ marginTop: "20px", float: "right" }}>Đóng</button>
+            <button 
+              onClick={() => setShowSearchForm(false)} 
+              className={`${styles.btn} ${styles["btn-secondary"]}`} 
+              style={{ marginTop: "20px", float: "right" }}
+            >
+              Đóng
+            </button>
           </div>
         </div>
       )}
 
       {/* --- MODAL THÊM THUỐC --- */}
       {showAddMedForm && (
-        <div className="modalOverlay">
-          <div className="modalContent">
-            <h2 className="modalTitle">Thêm thuốc mới</h2>
-            <div className="formGroup">
-              <input className="formInput" placeholder="Tên thuốc (*)" value={newMedData.name} onChange={(e) => setNewMedData({...newMedData, name: e.target.value})} />
-              <input className="formInput" placeholder="Danh mục" value={newMedData.category} onChange={(e) => setNewMedData({...newMedData, category: e.target.value})} />
-              <input className="formInput" placeholder="Đơn vị tính" value={newMedData.unit} onChange={(e) => setNewMedData({...newMedData, unit: e.target.value})} />
-              <input className="formInput" type="number" placeholder="Giá bán (*)" value={newMedData.price} onChange={(e) => setNewMedData({...newMedData, price: e.target.value})} />
-              <select className="formSelect" value={newMedData.supplierId} onChange={(e) => setNewMedData({...newMedData, supplierId: e.target.value})}>
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2 className={styles.modalTitle}>Thêm thuốc mới</h2>
+            <div className={styles.formGroup}>
+              <input 
+                className={styles.formInput} 
+                placeholder="Tên thuốc (*)" 
+                value={newMedData.name} 
+                onChange={(e) => setNewMedData({...newMedData, name: e.target.value})} 
+              />
+              <input 
+                className={styles.formInput} 
+                placeholder="Danh mục" 
+                value={newMedData.category} 
+                onChange={(e) => setNewMedData({...newMedData, category: e.target.value})} 
+              />
+              <input 
+                className={styles.formInput} 
+                placeholder="Đơn vị tính" 
+                value={newMedData.unit} 
+                onChange={(e) => setNewMedData({...newMedData, unit: e.target.value})} 
+              />
+              <input 
+                className={styles.formInput} 
+                type="number" 
+                placeholder="Giá bán (*)" 
+                value={newMedData.price} 
+                onChange={(e) => setNewMedData({...newMedData, price: e.target.value})} 
+              />
+              <select 
+                className={styles.formSelect} 
+                value={newMedData.supplierId} 
+                onChange={(e) => setNewMedData({...newMedData, supplierId: e.target.value})}
+              >
                 <option value="">-- Chọn Nhà Cung Cấp (*) --</option>
                 {supplierOptions.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
-              <textarea className="formTextarea" placeholder="Mô tả..." value={newMedData.description} onChange={(e) => setNewMedData({...newMedData, description: e.target.value})} />
+              <textarea 
+                className={styles.formTextarea} 
+                placeholder="Mô tả..." 
+                value={newMedData.description} 
+                onChange={(e) => setNewMedData({...newMedData, description: e.target.value})} 
+              />
             </div>
-            <div className="modalActions">
-              <button onClick={() => setShowAddMedForm(false)} className="btn btn-secondary">Hủy</button>
-              <button onClick={handleAddNewMedicine} className="btn btn-success">Lưu</button>
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => setShowAddMedForm(false)} 
+                className={`${styles.btn} ${styles["btn-secondary"]}`}
+              >
+                Hủy
+              </button>
+              <button 
+                onClick={handleAddNewMedicine} 
+                className={`${styles.btn} ${styles["btn-success"]}`}
+              >
+                Lưu
+              </button>
             </div>
           </div>
         </div>
@@ -237,39 +308,77 @@ export default function MedicinePage() {
 
       {/* --- MODAL NHẬP KHO --- */}
       {showImportForm && (
-        <div className="modalOverlay">
-          <div className="modalContent">
-            <h2 className="modalTitle">Phiếu Nhập Kho</h2>
-            <div className="formGroup">
-              <select className="formSelect" name="medicineId" value={formData.medicineId} onChange={handleInputChange}>
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2 className={styles.modalTitle}>Phiếu Nhập Kho</h2>
+            <div className={styles.formGroup}>
+              <select 
+                className={styles.formSelect} 
+                name="medicineId" 
+                value={formData.medicineId} 
+                onChange={handleInputChange}
+              >
                 <option value="">-- Chọn thuốc --</option>
                 {medicineOptions.map(m => <option key={m.id} value={m.id}>{m.name} ({m.unit})</option>)}
               </select>
-              <select className="formSelect" name="supplierId" value={formData.supplierId} onChange={handleInputChange}>
+              <select 
+                className={styles.formSelect} 
+                name="supplierId" 
+                value={formData.supplierId} 
+                onChange={handleInputChange}
+              >
                 <option value="">-- Chọn NCC --</option>
                 {supplierOptions.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
-              <input className="formInput" name="qty" type="number" placeholder="Số lượng" value={formData.qty} onChange={handleInputChange} />
-              <input className="formInput" name="price" type="number" placeholder="Giá nhập" value={formData.price} onChange={handleInputChange} />
+              <input 
+                className={styles.formInput} 
+                name="qty" 
+                type="number" 
+                placeholder="Số lượng" 
+                value={formData.qty} 
+                onChange={handleInputChange} 
+              />
+              <input 
+                className={styles.formInput} 
+                name="price" 
+                type="number" 
+                placeholder="Giá nhập" 
+                value={formData.price} 
+                onChange={handleInputChange} 
+              />
             </div>
-            <div className="modalActions">
-              <button onClick={() => setShowImportForm(false)} className="btn btn-secondary">Hủy</button>
-              <button onClick={handleSaveImport} className="btn btn-success">Lưu phiếu</button>
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => setShowImportForm(false)} 
+                className={`${styles.btn} ${styles["btn-secondary"]}`}
+              >
+                Hủy
+              </button>
+              <button 
+                onClick={handleSaveImport} 
+                className={`${styles.btn} ${styles["btn-success"]}`}
+              >
+                Lưu phiếu
+              </button>
             </div>
           </div>
         </div>
       )}
 
       {/* --- BẢNG VÀ PHÂN TRANG --- */}
-      <div className="tableControls">
+      <div className={styles.tableControls}>
         <label>Hiển thị:</label>
-        <select className="tableSelect" value={rowsPerPage} onChange={(e) => { setRowsPerPage(Number(e.target.value)); setCurrentPage(1); }}>
+        <select 
+          className={styles.tableSelect} 
+          value={rowsPerPage} 
+          onChange={(e) => { setRowsPerPage(Number(e.target.value)); setCurrentPage(1); }}
+        >
           <option value={5}>5 dòng</option>
           <option value={10}>10 dòng</option>
         </select>
       </div>
 
-      <table className="medicineTable">
+      <table className={styles.medicineTable}>
         <thead>
           <tr>
             <th>Ngày nhập</th><th>Thuốc nhập</th><th>Hãng</th><th>Số lượng</th><th>Giá nhập</th>
@@ -278,19 +387,44 @@ export default function MedicinePage() {
         <tbody>
           {currentRows.length > 0 ? currentRows.map(med => (
             <tr key={med.id}>
-              <td>{med.date}</td><td>{med.name}</td><td>{med.brand}</td><td className="text-center">{med.qty}</td><td>{med.price.toLocaleString('vi-VN')}₫</td>
+              <td>{med.date}</td>
+              <td>{med.name}</td>
+              <td>{med.brand}</td>
+              <td className={styles["text-center"]}>{med.qty}</td>
+              <td>{med.price.toLocaleString('vi-VN')}₫</td>
             </tr>
-          )) : <tr><td colSpan="5" className="no-data">Chưa có dữ liệu</td></tr>}
+          )) : (
+            <tr>
+              <td colSpan="5" className={styles["no-data"]}>Chưa có dữ liệu</td>
+            </tr>
+          )}
         </tbody>
       </table>
 
-      <div className="paginationFooter">
-        <div className="paginationControls">
-          <button className="paginationBtn" onClick={() => setCurrentPage(p => Math.max(1, p-1))} disabled={currentPage === 1}>Previous</button>
+      <div className={styles.paginationFooter}>
+        <div className={styles.paginationControls}>
+          <button 
+            className={styles.paginationBtn} 
+            onClick={() => setCurrentPage(p => Math.max(1, p-1))} 
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
           <span>Trang {currentPage}/{totalPages || 1}</span>
-          <button className="paginationBtn" onClick={() => setCurrentPage(p => Math.min(totalPages, p+1))} disabled={currentPage >= totalPages}>Next</button>
+          <button 
+            className={styles.paginationBtn} 
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p+1))} 
+            disabled={currentPage >= totalPages}
+          >
+            Next
+          </button>
         </div>
-        <button onClick={handleFilterThisMonth} className="btn btn-info">Hiện danh sách nhập tháng này</button>
+        <button 
+          onClick={handleFilterThisMonth} 
+          className={`${styles.btn} ${styles["btn-info"]}`}
+        >
+          Hiện danh sách nhập tháng này
+        </button>
       </div>
     </div>
   );

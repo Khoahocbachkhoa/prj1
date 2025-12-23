@@ -13,7 +13,7 @@ import CustomerPage from "./Dashboard/CustomerPage";
 import ReportPage from "./Dashboard/ReportPage";
 import SettingsPage from "./Dashboard/SettingsPage";
 
-import "../styles/Dashboard.css";
+import styles from "../styles/Dashboard.module.css";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -28,31 +28,33 @@ export default function Dashboard() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="dashboard">
-      <aside className="sidebar">
-        <div className="sidebar-header">DASHBOARD</div>
+    <div className={styles.dashboard}>
+      <aside className={styles.sidebar}>
+        <div className={styles["sidebar-header"]}>DASHBOARD</div>
 
-        <nav className="menu">
+        <nav className={styles.menu}>
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`menu-item ${isActive(item.path) ? "active" : ""}`}
+              className={`${styles["menu-item"]} ${
+                isActive(item.path) ? styles.active : ""
+              }`}
             >
-              <span className="icon">{item.icon}</span>
+              <span className={styles.icon}>{item.icon}</span>
               {item.name}
             </Link>
           ))}
         </nav>
 
-        <div className="sidebar-footer">
+        <div className={styles["sidebar-footer"]}>
           <Link
             to="/dashboard/settings"
-            className={`menu-item ${
-              isActive("/dashboard/settings") ? "active" : ""
+            className={`${styles["menu-item"]} ${
+              isActive("/dashboard/settings") ? styles.active : ""
             }`}
           >
-            <span className="icon">
+            <span className={styles.icon}>
               <FaCog />
             </span>
             Cài đặt
@@ -60,7 +62,7 @@ export default function Dashboard() {
         </div>
       </aside>
 
-      <main className="content">
+      <main className={styles.content}>
         <Routes>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<ReportPage />} />
