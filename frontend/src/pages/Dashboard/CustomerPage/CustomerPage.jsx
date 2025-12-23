@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { getCustomersApi, addCustomerApi, searchCustomerApi } from "../../api/customerApi";
+import { getCustomersApi, addCustomerApi, searchCustomerApi } from "../../../api/customerApi";
 
 // 1. Đổi import sang CSS Modules
 import styles from "../../styles/CustomerPage.module.css";

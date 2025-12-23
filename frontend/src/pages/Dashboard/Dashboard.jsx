@@ -9,9 +9,9 @@ import {
 
 import MedicinePage from "./MedicinePage/MedicinePage";
 import InvoicePage from "./InvoicePage";
-import CustomerPage from "./CustomerPage";
-import ReportPage from "./ReportPage";
-import SettingsPage from "./SettingsPage";
+import CustomerPage from "./CustomerPage/CustomerPage";
+import ReportPage from "./ReportPage/ReportPage";
+import SettingsPage from "./SettingsPage/SettingsPage";
 
 import styles from "./Dashboard.module.css";
 
