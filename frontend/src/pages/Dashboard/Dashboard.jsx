@@ -7,13 +7,13 @@ import {
   FaCog,
 } from "react-icons/fa";
 
-import MedicinePage from "./Dashboard/MedicinePage";
-import InvoicePage from "./Dashboard/InvoicePage";
-import CustomerPage from "./Dashboard/CustomerPage";
-import ReportPage from "./Dashboard/ReportPage";
-import SettingsPage from "./Dashboard/SettingsPage";
+import MedicinePage from "./MedicinePage/MedicinePage";
+import InvoicePage from "./InvoicePage";
+import CustomerPage from "./CustomerPage";
+import ReportPage from "./ReportPage";
+import SettingsPage from "./SettingsPage";
 
-import styles from "../styles/Dashboard.module.css";
+import styles from "./Dashboard.module.css";
 
 export default function Dashboard() {
   const location = useLocation();

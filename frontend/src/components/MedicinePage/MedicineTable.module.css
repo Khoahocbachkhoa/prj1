@@ -1,0 +1,67 @@
+.medicineTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+}
+
+/* ===== HEADER ===== */
+.medicineTable thead {
+  background-color: #f9fafb;
+}
+
+.medicineTable th {
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+/* ===== BODY ===== */
+.medicineTable td {
+  padding: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #374151;
+}
+
+/* Zebra striping */
+.medicineTable tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Hover row */
+.medicineTable tbody tr:hover {
+  background-color: #f0f9ff;
+  transition: background-color 0.2s ease;
+}
+
+/* ===== ALIGNMENT ===== */
+.text-center {
+  text-align: center;
+}
+
+/* ===== EMPTY DATA ===== */
+.no-data {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* ===== RESPONSIVE (OPTIONAL) ===== */
+@media (max-width: 768px) {
+  .medicineTable {
+    font-size: 13px;
+  }
+
+  .medicineTable th,
+  .medicineTable td {
+    padding: 10px 8px;
+  }
+}

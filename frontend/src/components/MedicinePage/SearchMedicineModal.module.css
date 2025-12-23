@@ -1,0 +1,164 @@
+/* ===============================
+   Overlay
+================================ */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ===============================
+   Modal
+================================ */
+.modalContent {
+  background: #ffffff;
+  width: 760px;
+  max-width: 95%;
+  border-radius: 14px;
+  padding: 26px 28px 24px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+
+.large {
+  width: 820px;
+}
+
+/* ===============================
+   Title
+================================ */
+.modalTitle {
+  margin: 0 0 18px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   Search box
+================================ */
+.searchBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   Inputs
+================================ */
+.formInput {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s ease;
+}
+
+.formInput::placeholder {
+  color: #9ca3af;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ===============================
+   Buttons
+================================ */
+.btn {
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+/* ===============================
+   Table
+================================ */
+.medicineTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.medicineTable th {
+  background: #f9fafb;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-weight: 600;
+}
+
+.medicineTable td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+.medicineTable tr:hover td {
+  background: #f9fafb;
+}
+
+/* ===============================
+   States
+================================ */
+.text-success {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.no-data {
+  text-align: center;
+  color: #9ca3af;
+  padding: 18px 0;
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 22px 20px;
+  }
+
+  .searchBox {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

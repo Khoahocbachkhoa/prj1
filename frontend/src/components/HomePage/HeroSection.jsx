@@ -1,4 +1,4 @@
-import img from "../assets/homepagePic.png";
+import img from "../../assets/homepagePic.png";
 import styles from "./HeroSection.module.css";
 
 export default function HeroSection() {

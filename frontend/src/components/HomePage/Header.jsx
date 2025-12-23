@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/mainLogo.svg";
+import logo from "../../assets/mainLogo.svg";
 import styles from "./Header.module.css"; 
 
 export default function Header() {

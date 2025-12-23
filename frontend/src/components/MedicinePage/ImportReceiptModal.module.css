@@ -1,0 +1,137 @@
+/* ===============================
+   Overlay
+================================ */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ===============================
+   Modal container
+================================ */
+.modalContent {
+  background: #ffffff;
+  width: 520px;
+  max-width: 95%;
+  border-radius: 14px;
+  padding: 26px 28px 24px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+
+/* ===============================
+   Title
+================================ */
+.modalTitle {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   Form layout
+================================ */
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ===============================
+   Inputs & Select
+================================ */
+.formInput,
+.formSelect {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+/* Placeholder */
+.formInput::placeholder {
+  color: #9ca3af;
+}
+
+/* Focus */
+.formInput:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Select chiếm full dòng đầu */
+.formSelect:first-child {
+  grid-column: span 2;
+}
+
+/* ===============================
+   Actions
+================================ */
+.modalActions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ===============================
+   Buttons
+================================ */
+.btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Cancel */
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Save */
+.btn-success {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #1d4ed8;
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 22px 20px;
+  }
+
+  .formGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .formSelect:first-child {
+    grid-column: span 1;
+  }
+}
