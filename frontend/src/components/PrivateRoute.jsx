@@ -1,11 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const PrivateRoute = () => {
+// Chặn truy cập dashboard khi chưa đăng nhập
+const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
 
   // Nếu có token -> Cho vào (Render Outlet)
   // Nếu không -> Về trang login và yêu cầu đăng nhập
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  return token ? children : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

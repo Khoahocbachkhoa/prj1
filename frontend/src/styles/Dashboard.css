@@ -1,8 +1,10 @@
 /* ===== Layout ===== */
 .dashboard {
   display: flex;
+  height: 100vh;
   min-height: 100vh;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow: hidden;
 }
 
 /* ===== Sidebar ===== */
