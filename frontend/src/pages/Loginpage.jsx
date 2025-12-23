@@ -34,7 +34,6 @@ function LoginPage() {
   };
 
   return (
-    // 2. Sử dụng styles.className thay vì string
     <div className={styles.pageWrapper}>
       <div className={styles.loginCard}>
         <h2 className={styles.loginTitle}>Đăng nhập</h2>
