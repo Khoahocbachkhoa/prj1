@@ -1,5 +1,5 @@
 import img from "../assets/homepagePic.png";
-import styles from "../styles/HeroSection.module.css";
+import styles from "./HeroSection.module.css";
 
 export default function HeroSection() {
   return (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-// Import file API
+
 import { 
   getMedicineOptionsApi, 
   getSupplierOptionsApi, 
@@ -9,7 +9,6 @@ import {
   createImportReceiptApi 
 } from "../../api/medicineApi.js";
 
-// 1. Đổi import sang CSS Module
 import styles from "../../styles/MedicinePage.module.css";
 
 export default function MedicinePage() {
@@ -33,11 +32,7 @@ export default function MedicinePage() {
   const [newMedData, setNewMedData] = useState({ name: "", category: "", unit: "", price: "", supplierId: "", description: "" });
   const [formData, setFormData] = useState({ medicineId: "", supplierId: "", qty: "", price: "" });
 
-
-  // =================================================================================
-  // 1. CÁC HÀM GỌI API
-  // =================================================================================
-  
+    
   const fetchOptions = useCallback(async () => {
     try {
       const medRes = await getMedicineOptionsApi();
@@ -159,9 +154,7 @@ export default function MedicinePage() {
   const totalPages = Math.ceil(medicines.length / rowsPerPage);
 
 
-  // =================================================================================
-  // 4. GIAO DIỆN (Đã cập nhật styles)
-  // =================================================================================
+  // Phần giao diện -> Cần tách ra thành các components
   return (
     <div className={styles.medicineContainer}>
       <h1 className={styles.pageTitle}>Quản lý kho</h1>

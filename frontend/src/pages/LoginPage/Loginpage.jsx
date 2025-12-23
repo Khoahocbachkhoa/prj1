@@ -1,9 +1,9 @@
 import { FaUser, FaLock } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginApi } from "../api/authApi";
+import { loginApi } from "../../api/authApi";
 
-import styles from "../styles/LoginPage.module.css";
+import styles from "./LoginPage.module.css";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
