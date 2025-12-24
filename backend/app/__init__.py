@@ -34,6 +34,7 @@ def create_app():
     from app.routes.medicine import medicine_bp
     from app.routes.customer import customer_bp
     from app.routes.invoice import invoice_bp
+    from app.routes.report import report_bp
     
     app.register_blueprint(login_bp)
     app.register_blueprint(common_bp)
@@ -41,6 +42,7 @@ def create_app():
     app.register_blueprint(medicine_bp)
     app.register_blueprint(customer_bp)
     app.register_blueprint(invoice_bp)
+    app.register_blueprint(report_bp)
 
     # Tạo bảng trong Database nếu chưa có
     with app.app_context():
