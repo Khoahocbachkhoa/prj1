@@ -19,10 +19,18 @@ Công nghệ sử dụng:
     FE: React + Vite
     BE: Flask + SQLite + Sqlalchemy
 
-# Cấu trúc thư mục
-```
-
-```
-
 # Cách chạy ứng dụng
-Tiếp theo : Hoàn thành backend cho chức năng quản lý kho thuốc !
+
+# Backend:
+Yêu cầu : nodejs, python, pip
+Điều hướng tới thư mục frontend
+Tạo môi trường : python -m venv venv
+Kích hoạt môi trường ảo: venv\Scripts\activate (window) hoặc source venv/bin/activate (linux)
+Cài các gói cần thiết : pip install -r requirements.txt
+Khởi tạo server : python run.py
+(Tùy chọn) Khởi tạo seed để hiển thị dữ liệu mẫu : python seed.py
+
+# Frontend:
+Yêu cầu : nodejs
+Cài các gói cần thiết : npm i
+Khởi tạo ứng dụng : npm run dev
