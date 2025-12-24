@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 
 import MedicinePage from "./MedicinePage/MedicinePage";
-import InvoicePage from "./InvoicePage";
+import InvoicePage from "./InvoicePage/InvoicePage";
 import CustomerPage from "./CustomerPage/CustomerPage";
 import ReportPage from "./ReportPage/ReportPage";
 import SettingsPage from "./SettingsPage/SettingsPage";

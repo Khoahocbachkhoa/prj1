@@ -1,273 +1,58 @@
-/* Layout chung */
-.medicineContainer {
-  padding: 30px; /* Tăng padding chút cho thoáng */
-  position: relative;
-  padding-bottom: 100px;
-  background-color: #f8f9fa; /* Thêm màu nền nhẹ cho container */
+/* Layout chính */
+.container {
+  padding: 28px;
   min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
 .pageTitle {
-  margin-bottom: 25px;
-  color: #333;
+  font-size: 22px;
   font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 24px;
 }
 
-/* Thanh chức năng (Nút bấm) */
+/* Action bar */
 .actionBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .actionGroup {
   display: flex;
-  gap: 12px; /* Tăng khoảng cách nút */
-}
-
-/* --- BUTTON STYLES (ĐÃ CẬP NHẬT MÀU SẮC CHUYÊN NGHIỆP) --- */
-.btn {
-  padding: 10px 20px;
-  border: 1px solid transparent; /* Thêm border transparent để tránh layout shift */
-  border-radius: 6px; /* Bo góc mềm hơn (6px) thay vì 5px */
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
-  transition: all 0.2s ease-in-out; /* Hiệu ứng mượt mà */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Đổ bóng nhẹ */
-}
-
-.btn:hover {
-  transform: translateY(-1px); /* Nổi lên nhẹ khi hover */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.btn:active {
-  transform: translateY(0);
-}
-
-/* Nút chính (Primary) - Xanh dương đậm đà hơn */
-.btn-primary {
-  background-color: #2563eb; /* Royal Blue */
-  color: white;
-}
-.btn-primary:hover {
-  background-color: #1d4ed8;
-}
-
-/* Nút thành công (Success) - Xanh lá dịu mắt */
-.btn-success {
-  background-color: #10b981; /* Emerald Green */
-  color: white;
-}
-.btn-success:hover {
-  background-color: #059669;
-}
-
-/* Nút thông tin (Info) - Cyan đậm hơn chút */
-.btn-info {
-  background-color: #0ea5e9; /* Sky Blue */
-  color: white;
-}
-.btn-info:hover {
-  background-color: #0284c7;
-}
-
-/* Nút phụ (Secondary) - Trắng viền xám (Style Outline) */
-.btn-secondary {
-  background-color: white;
-  color: #4b5563; /* Xám đậm */
-  border: 1px solid #d1d5db; /* Viền xám */
-}
-.btn-secondary:hover {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
-  color: #111;
-}
-
-/* Nút nguy hiểm (Danger) - Đỏ */
-.btn-danger {
-  background-color: #ef4444;
-  color: white;
-}
-.btn-danger:hover {
-  background-color: #dc2626;
-}
-
-/* --- CÁC PHẦN KHÁC GIỮ NGUYÊN --- */
-
-/* Modal / Popup */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Giữ nguyên overlay tối */
-  backdrop-filter: blur(2px); /* Thêm hiệu ứng mờ kính nhẹ cho hiện đại */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px; /* Bo góc modal nhiều hơn chút */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Bóng đổ sâu hơn */
-  width: 400px; 
-  animation: slideIn 0.2s ease-out; /* Thêm animation xuất hiện */
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.modalContent.large {
-  width: 700px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.modalTitle {
-  margin-top: 0;
-  margin-bottom: 25px;
-  font-size: 20px;
-  color: #1f2937;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.formInput, .formSelect, .formTextarea {
-  padding: 10px 12px;
-  font-size: 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-}
-
-.formInput:focus, .formSelect:focus, .formTextarea:focus {
-  outline: none;
-  border-color: #2563eb; /* Focus màu xanh primary */
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.modalActions {
-  margin-top: 25px;
-  display: flex;
-  justify-content: flex-end;
   gap: 12px;
 }
 
-/* Search Box trong Modal */
-.searchBox {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-/* Bảng dữ liệu */
-.tableControls {
-  margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
+/* Button base */
+.btn {
+  padding: 10px 18px;
   font-size: 14px;
-  color: #6b7280;
-}
-
-.tableSelect {
-  padding: 6px 10px;
+  font-weight: 500;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
-  outline: none;
-}
-
-.medicineTable {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 15px;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden; /* Để bo góc bảng */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.medicineTable th, .medicineTable td {
-  border-bottom: 1px solid #e5e7eb; /* Chỉ kẻ ngang */
-  padding: 12px 16px;
-  text-align: left;
-}
-
-.medicineTable th {
-  background-color: #f9fafb;
-  font-weight: 600;
-  color: #4b5563;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.05em;
-}
-
-.medicineTable tr:last-child td {
-  border-bottom: none;
-}
-
-.text-center { text-align: center; }
-.text-success { font-weight: 600; color: #059669; }
-.text-danger { font-weight: 600; color: #dc2626; }
-
-.no-data {
-  text-align: center;
-  padding: 30px;
-  color: #9ca3af;
-  font-style: italic;
-}
-
-/* Pagination Footer */
-.paginationFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.paginationControls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.paginationBtn {
-  padding: 6px 12px;
+  border: 1px solid transparent;
   cursor: pointer;
-  border: 1px solid #d1d5db;
+  background: white;
+  transition: background-color 0.2s ease;
+}
+
+/* Variants */
+.primary {
+  background-color: #1f2937;
+  color: white;
+}
+
+.primary:hover {
+  background-color: #1d4ed8;
+}
+
+.secondary {
   background-color: white;
-  border-radius: 6px;
-  font-size: 14px;
   color: #374151;
-  transition: all 0.2s;
+  border: 1px solid #d1d5db;
 }
 
-.paginationBtn:hover:not(:disabled) {
+.secondary:hover {
   background-color: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.paginationBtn:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-  background-color: #f9fafb;
 }
