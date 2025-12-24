@@ -1,19 +1,21 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Medicine, Supplier
+from flask_jwt_extended import jwt_required
 
 medicine_bp = Blueprint('medicine', __name__)
 
-# --- API 1: TÌM KIẾM THUỐC ---
+# Tìm kiếm thuốc
 @medicine_bp.route('/api/medicines/search', methods=['GET'])
+@jwt_required()
 def search_medicines():
     try:
-        query_text = request.args.get('q', '').strip()
+        # Lấy tên thuốc cần tìm kiếm
+        query_text = request.args.get('q', '').strip() 
         
         if not query_text:
             return jsonify([]), 200
 
-        # Tìm kiếm thuốc có tên chứa từ khóa (ILIKE cho không phân biệt hoa thường)
-        # Kết nối với bảng Supplier để lấy tên hãng
+        # Tìm kiếm thuốc theo tên
         medicines = db.session.query(Medicine, Supplier)\
             .join(Supplier, Medicine.SupplierID == Supplier.SupplierID)\
             .filter(Medicine.Name.ilike(f"%{query_text}%"))\
@@ -27,7 +29,7 @@ def search_medicines():
                 "category": med.Category,
                 "unit": med.Unit,
                 "price": med.Price,
-                "quantity": med.Quantity, # Số lượng tồn hiện tại
+                "quantity": med.Quantity,
                 "brand": sup.Name,
                 "description": med.Description
             })
@@ -35,19 +37,20 @@ def search_medicines():
         return jsonify(results), 200
 
     except Exception as e:
-        return jsonify({"msg": "Lỗi tìm kiếm: " + str(e)}), 500
+        return jsonify({"msg": "Lỗi: " + str(e)}), 500
 
-# --- API 2: THÊM LOẠI THUỐC MỚI ---
+# Thêm loại thuốc mới
 @medicine_bp.route('/api/medicines', methods=['POST'])
 def add_new_medicine():
     try:
         data = request.get_json()
         
-        # Validate cơ bản
+        # Kiểm tra sự hợp lệ của dữ liệu
         if not data.get('name') or not data.get('price') or not data.get('supplier_id'):
-            return jsonify({"msg": "Tên, Giá và Nhà cung cấp là bắt buộc!"}), 400
+            return jsonify({"msg": "Vui lòng nhập đủ thông tin!"}), 400
 
-        # Tạo đối tượng thuốc mới (Số lượng ban đầu = 0)
+        # Giả sử ID tự động tăng
+        # ! Chưa kiếm tra trùng tên, trùng loại, demo đơn giản nhất
         new_med = Medicine(
             Name=data.get('name'),
             Category=data.get('category'),
@@ -55,7 +58,7 @@ def add_new_medicine():
             Price=float(data.get('price')),
             SupplierID=int(data.get('supplier_id')),
             Description=data.get('description'),
-            Quantity=0 # Thuốc mới khai báo thì kho chưa có
+            Quantity=0
         )
 
         db.session.add(new_med)
@@ -64,5 +67,6 @@ def add_new_medicine():
         return jsonify({"msg": "Thêm thuốc mới thành công!", "id": new_med.MedicineID}), 201
 
     except Exception as e:
+        # Không thành công thì ta rollback
         db.session.rollback()
         return jsonify({"msg": "Lỗi thêm thuốc: " + str(e)}), 500

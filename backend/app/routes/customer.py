@@ -1,52 +1,60 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Customer
+from flask_jwt_extended import jwt_required
 
 customer_bp = Blueprint('customer', __name__)
 
-# --- API 1: LẤY DANH SÁCH KHÁCH HÀNG ---
+# Lấy danh sách các khách hàng phục vụ cho nhập hóa đơn
 @customer_bp.route('/api/customers', methods=['GET'])
+@jwt_required()
 def get_customers():
     try:
-        customers = Customer.query.order_by(Customer.CustomerID.desc()).all()
-        data = [{
+        customers = Customer.query.all()
+
+        results = [{
             "id": c.CustomerID,
             "name": c.Name,
             "phone": c.Phone,
             "address": c.Address
         } for c in customers]
-        return jsonify(data), 200
+        return jsonify(results), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
 
-# --- API 2: THÊM KHÁCH HÀNG MỚI ---
+# thêm 1 khách hàng mới
 @customer_bp.route('/api/customers', methods=['POST'])
+@jwt_required()
 def add_customer():
     try:
         data = request.get_json()
         if not data.get('name'):
-            return jsonify({"msg": "Tên khách hàng là bắt buộc"}), 400
+            return jsonify({"msg": "Lỗi không có tên khách hàng"}), 400
 
         new_customer = Customer(
             Name=data.get('name'),
             Phone=data.get('phone'),
             Address=data.get('address')
         )
+
         db.session.add(new_customer)
         db.session.commit()
         return jsonify({"msg": "Thêm khách hàng thành công", "id": new_customer.CustomerID}), 201
     except Exception as e:
+        # Có lỗi thì rollback giao dịch!
         db.session.rollback()
         return jsonify({"msg": str(e)}), 500
 
-# --- API 3: TÌM KIẾM KHÁCH HÀNG ---
+# Tìm kiếm khách hàng
 @customer_bp.route('/api/customers/search', methods=['GET'])
+@jwt_required()
 def search_customers():
     try:
+        # Lấy ra thông tin try vấn
         query_text = request.args.get('q', '').strip()
         if not query_text:
             return jsonify([]), 200
 
-        # Tìm theo Tên HOẶC Số điện thoại
+        # Tìm theo tên hoặc số điện thoại của khách hàng
         customers = Customer.query.filter(
             (Customer.Name.ilike(f"%{query_text}%")) | 
             (Customer.Phone.ilike(f"%{query_text}%"))
@@ -58,6 +66,7 @@ def search_customers():
             "phone": c.Phone,
             "address": c.Address
         } for c in customers]
+        # Trả về nếu tìm thấy
         return jsonify(data), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 500

@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-// Lấy danh sách hóa đơn (kèm bộ lọc)
+// Lấy danh sách hóa đơn
 export const getInvoicesApi = (filterType, searchQuery) => {
   let url = `/api/invoices?filter=${filterType}`;
   if (searchQuery) {
