@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// Đảm bảo đường dẫn import API đúng với cấu trúc dự án của bạn
 import {
   getSaleByMonth,
   getNumInvoiceByMonth,
@@ -9,7 +8,8 @@ import {
 
 import styles from "./ReportPage.module.css";
 
-/* ===== FAKE DATA: DOANH THU 12 THÁNG (triệu VND) ===== */
+// * Giả lập do thiếu data các tháng 1 -> 11
+// * Triển khai thực tế khá đơn giản, chỉ cần gọi api lấy dữ liệu từ các tháng trước là xong
 const FAKE_MONTHLY_SALES = [
   120, 150, 180, 160, 210, 250, 300, 280, 240, 220, 200, 320,
 ];
@@ -26,7 +26,7 @@ export default function ReportPage() {
   const [slowMedicines, setSlowMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch dữ liệu
+  // Fetch dữ liệu để hiển thị toàn bộ trang
   useEffect(() => {
     const fetchReportData = async () => {
       try {
@@ -44,7 +44,7 @@ export default function ReportPage() {
         setBestMedicines(medicineRes.data.best_sellers || []);
         setSlowMedicines(medicineRes.data.slow_sellers || []);
       } catch (err) {
-        console.error("Lỗi tải báo cáo", err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -68,9 +68,9 @@ export default function ReportPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Thống kê tổng quan</h1>
+      <h1 className={styles.title}>Thống kê</h1>
 
-      {/* ====== THẺ TỔNG QUAN ====== */}
+      {/* Doanh thu thàng và số hóa đơn */}
       <div className={styles.cardGrid}>
         <div className={styles.card}>
           <p className={styles.cardLabel}>Doanh thu tháng này</p>
@@ -86,20 +86,20 @@ export default function ReportPage() {
       </div>
 
       <div className={styles.chartCard}>
-        <h3>Doanh thu & Giá nhập theo tháng (Triệu VNĐ)</h3>
+        <h3>Doanh thu & Giá nhập qua các tháng (Triệu VNĐ)</h3>
 
         <div className={styles.simpleChart}>
           {chartData.map((item, i) => (
             <div key={i} className={styles.colWrapper}>
               <div className={styles.barGroup}>
-                {/* Cột giá nhập (xám) */}
+                {/* Cột giá nhập  */}
                 <div
                   className={`${styles.bar} ${styles.importBar}`}
                   style={{ height: `${item.importPercent}%` }}
                   title={`Giá nhập: ${item.import} triệu`}
                 />
 
-                {/* Cột doanh thu (xanh) */}
+                {/* Cột doanh thu */}
                 <div
                   className={`${styles.bar} ${styles.saleBar}`}
                   style={{ height: `${item.salePercent}%` }}
@@ -113,9 +113,9 @@ export default function ReportPage() {
         </div>
       </div>
 
-      {/* ====== KHÁCH & THUỐC ====== */}
+      {/* Thống kê khách mua nhiều và thuốc bán chạy, bán ế */}
       <div className={styles.bottomGrid}>
-        {/* Bảng Top Khách hàng */}
+        {/* Top Khách hàng */}
         <div className={styles.tableCard}>
           <h3>Khách mua nhiều nhất</h3>
           <table className={styles.table}>
@@ -145,7 +145,7 @@ export default function ReportPage() {
           </table>
         </div>
 
-        {/* Danh sách Thuốc */}
+        {/* Danh sách Thuốc bán chạy, bán ế */}
         <div className={styles.tableCard}>
           <h3>Thuốc bán chạy</h3>
           <ul className={styles.list}>

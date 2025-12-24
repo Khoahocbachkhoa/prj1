@@ -9,8 +9,8 @@ import styles from "./InvoicePage.module.css";
 
 export default function InvoicePage() {
   const [invoices, setInvoices] = useState([]);
-  const [filterType, setFilterType] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all"); // quản lý lọc hóa đơn
+  const [searchQuery, setSearchQuery] = useState(""); // quản lý trạng thái tìm kiếm
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [showSearchForm, setShowSearchForm] = useState(false);
