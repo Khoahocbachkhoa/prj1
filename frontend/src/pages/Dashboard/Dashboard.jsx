@@ -62,6 +62,7 @@ export default function Dashboard() {
         </div>
       </aside>
 
+      {/* Điều hướng tới các trang khác nhau */}
       <main className={styles.content}>
         <Routes>
           <Route index element={<Navigate to="home" replace />} />
