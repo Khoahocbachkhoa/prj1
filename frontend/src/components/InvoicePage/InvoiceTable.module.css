@@ -1,0 +1,52 @@
+/* Kế thừa từ medicineTable gốc */
+.medicineTable {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 15px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.medicineTable th,
+.medicineTable td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.medicineTable th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #4b5563;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.medicineTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Text helpers */
+.textRight {
+  text-align: right;
+}
+
+.textPrimary {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+/* No data */
+.noData {
+  text-align: center;
+  padding: 30px;
+  color: #9ca3af;
+  font-style: italic;
+}
